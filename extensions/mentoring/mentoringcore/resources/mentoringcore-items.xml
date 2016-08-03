@@ -19,6 +19,14 @@
 		                type="set"/>
 	</collectiontypes>
 
+	<relations>
+        <relation code="CustomerOrganizationRel" localized="false" autocreate="true">
+           <deployment table="customerOrganization" typecode="10002"/>
+            <sourceElement qualifier="customer" type="Customer" cardinality="many"/>
+            <targetElement qualifier="organization" type="Organization" cardinality="many"/>
+        </relation>
+	</relations>
+
 
 	<enumtypes>
 		<enumtype generate="true" code="SwatchColorEnum" autocreate="true" dynamic="true">
@@ -38,11 +46,35 @@
 	</enumtypes>
 
 	<itemtypes>
+		<itemtype code="Customer" autocreate="false">
+          <attributes>
+                <attribute qualifier="status" type="java.lang.Boolean">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="attemptCount" type="java.lang.Integer">
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
 
-		<!-- Add your item definitions here -->
+        <itemtype code="Organization" autocreate="true" generate="true">
+            <deployment table="Organization" typecode="10001"/>
+            <attributes>
+               <attribute qualifier="id" type="java.lang.Integer">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="name" type="java.lang.String">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="phone" type="java.lang.Number">
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="email" type="java.lang.String">
+                   <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
 
-
-		<!-- TypeGroups are for structure of this file only -->
 
 		<typegroup name="Apparel">
 			<itemtype code="ApparelProduct" extends="Product"
