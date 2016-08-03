@@ -19,15 +19,6 @@
 		                type="set"/>
 	</collectiontypes>
 
-	<relations>
-        <relation code="CustomerOrganizationRel" localized="false" autocreate="true">
-           <deployment table="customerOrganization" typecode="10002"/>
-            <sourceElement qualifier="customer" type="Customer" cardinality="many"/>
-            <targetElement qualifier="organization" type="Organization" cardinality="many"/>
-        </relation>
-	</relations>
-
-
 	<enumtypes>
 		<enumtype generate="true" code="SwatchColorEnum" autocreate="true" dynamic="true">
 			<value code="BLACK"/>
@@ -44,6 +35,14 @@
 			<value code="YELLOW"/>
 		</enumtype>
 	</enumtypes>
+
+	<relations>
+		<relation code="CustomerOrganizationRel" localized="false" autocreate="true">
+			<deployment table="customerOrganization" typecode="10002"/>
+			<sourceElement qualifier="customer" type="Customer" cardinality="many"/>
+			<targetElement qualifier="organization" type="Organization" cardinality="many"/>
+		</relation>
+	</relations>
 
 	<itemtypes>
 		<itemtype code="Customer" autocreate="false">
@@ -62,15 +61,19 @@
             <attributes>
                <attribute qualifier="id" type="java.lang.Integer">
                     <persistence type="property"/>
+				   	<modifiers optional="false" unique="true" />
                 </attribute>
-                <attribute qualifier="name" type="java.lang.String">
+                <attribute qualifier="name" type="localized:java.lang.String">
                     <persistence type="property"/>
+                    <modifiers optional="false"/>
                 </attribute>
                 <attribute qualifier="phone" type="java.lang.Number">
                     <persistence type="property"/>
+                    <modifiers optional="false"/>
                 </attribute>
                 <attribute qualifier="email" type="java.lang.String">
-                   <persistence type="property"/>
+                    <persistence type="property"/>
+                    <modifiers optional="false"/>
                 </attribute>
             </attributes>
         </itemtype>
