@@ -14,21 +14,65 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="hybris.de/schemas/hmc/generic hmc.xsd">
 
-
 	<!-- Configuration for extension mentoringcore -->
 
-	<type name="Consignment" mode="append">
+	<explorertree>
+		<group name="mentoringgroup">
+			<typeref type="Organisation"/>
+			<typeref type="Customer"/>
+		</group>
+	</explorertree>
+
+	<type name="Organisation" mode="append">
 		<organizer>
-			<editor mode="append">
-				<tab name="properties" position="0" mode="append">
-					<section name="consignment.details">
-						<listlayout mode="append">
-							 <action type="item" classname="de.hybris.mentoring.core.hmc.PickupConfirmationHMCAction" name="btn.consignment.confirm.pickup"/>
+			<search mode="replace">
+				<condition attribute="id"/>
+				<condition attribute="name"/>
+				<condition attribute="phone"/>
+				<condition attribute="email"/>
+			</search>
+			<result>
+				<listview mode="replace">
+					<itemlayout>
+						<attribute name="id"/>
+						<attribute name="phone"/>
+						<attribute name="email"/>
+					</itemlayout>
+				</listview>
+			</result>
+			<editor>
+				<essentials>
+					<listlayout>
+						<attribute name="name"/>
+					</listlayout>
+				</essentials>
+				<tab name="tab.mentoring">
+					<section name="section.mentoring">
+						<listlayout>
+							<attribute name="name"/>
+							<attribute name="phone"/>
+							<attribute name="email"/>
 						</listlayout>
 					</section>
 				</tab>
 			</editor>
 		</organizer>
 	</type>
-	
+
+	<!-- Configuration for extension trainingcore -->
+
+ 	<type name="Consignment" mode="append">
+ 		<organizer>
+ 			<editor mode="append">
+ 				<tab name="properties" position="0" mode="append">
+ 					<section name="consignment.details">
+ 						<listlayout mode="append">
+ 							 <action type="item" classname="com.epam.training.core.hmc.PickupConfirmationHMCAction" name="btn.consignment.confirm.pickup"/>
+ 						</listlayout>
+ 					</section>
+ 				</tab>
+ 			</editor>
+ 		</organizer>
+ 	</type>
+
 </configuration>

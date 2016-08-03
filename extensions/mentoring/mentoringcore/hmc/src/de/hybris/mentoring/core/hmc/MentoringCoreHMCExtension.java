@@ -44,7 +44,7 @@ public class MentoringCoreHMCExtension extends HMCExtension
 	private static final Logger LOG = Logger.getLogger(MentoringCoreHMCExtension.class.getName());
 
 	/** Path to the resource bundles. */
-	public static final String RESOURCE_PATH = "de.hybris.mentoring.core.hmc.locales";
+	public static final String RESOURCE_PATH = "hmc.locales";
 
 
 	/**
