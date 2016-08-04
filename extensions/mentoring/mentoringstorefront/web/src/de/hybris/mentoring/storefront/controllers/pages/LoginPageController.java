@@ -13,6 +13,9 @@
  */
 package de.hybris.mentoring.storefront.controllers.pages;
 
+import de.hybris.platform.acceleratorstorefrontcommons.controllers.util.GlobalMessages;
+import de.hybris.platform.core.model.user.CustomerModel;
+import de.hybris.platform.servicelayer.user.UserService;
 import de.hybris.platform.acceleratorstorefrontcommons.controllers.pages.AbstractLoginPageController;
 import de.hybris.platform.acceleratorstorefrontcommons.forms.RegisterForm;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
@@ -25,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.stereotype.Controller;
@@ -46,6 +51,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LoginPageController extends AbstractLoginPageController
 {
 	private HttpSessionRequestCache httpSessionRequestCache;
+	private UserService userService;
+
+	private static final String ERROR_MESSAGE = "login.error.account.blocked";
 
 	@Override
 	protected String getView()
@@ -85,8 +93,24 @@ public class LoginPageController extends AbstractLoginPageController
 		if (!loginError)
 		{
 			storeReferer(referer, request, response);
+		} else {
+			final String userUid = (String) session.getAttribute(SPRING_SECURITY_LAST_USERNAME);
+			addErrorMessage(model, userUid);
 		}
 		return getDefaultLoginPage(loginError, session, model);
+	}
+
+	private void addErrorMessage(final Model model, String userUid) {
+		if (StringUtils.isNotEmpty(userUid)) {
+			CustomerModel userModel = (CustomerModel) userService.getUserForUID(userUid);
+			if (isCustomerAttacked(userModel)) {
+				GlobalMessages.addErrorMessage(model, ERROR_MESSAGE);
+			}
+		}
+	}
+
+	private boolean isCustomerAttacked(CustomerModel model) {
+		return model != null && Boolean.FALSE.equals(model.getStatus());
 	}
 
 	protected void storeReferer(final String referer, final HttpServletRequest request, final HttpServletResponse response)
@@ -105,5 +129,11 @@ public class LoginPageController extends AbstractLoginPageController
 	{
 		getRegistrationValidator().validate(form, bindingResult);
 		return processRegisterUserRequest(referer, form, bindingResult, model, request, response, redirectModel);
+	}
+
+	@Autowired
+	@Qualifier("userService")
+	public void setUserService(final UserService userService) {
+		this.userService = userService;
 	}
 }

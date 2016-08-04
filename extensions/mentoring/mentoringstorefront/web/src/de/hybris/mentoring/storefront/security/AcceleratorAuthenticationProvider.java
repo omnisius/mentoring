@@ -14,6 +14,7 @@
 package de.hybris.mentoring.storefront.security;
 
 import de.hybris.platform.core.Constants;
+import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.servicelayer.model.ModelService;
@@ -64,8 +65,7 @@ public class AcceleratorAuthenticationProvider extends CoreAuthenticationProvide
 		{
 			try
 			{
-				final UserModel userModel = getUserService().getUserForUID(StringUtils.lowerCase(username));
-				userModel.setLoginDisabled(true);
+				final UserModel userModel = prepareUserModel(username);
 				getModelService().save(userModel);
 				bruteForceAttackCounter.resetUserCounter(userModel.getUid());
 			}
@@ -73,13 +73,21 @@ public class AcceleratorAuthenticationProvider extends CoreAuthenticationProvide
 			{
 				LOG.warn("Brute force attack attempt for non existing user name " + username);
 			}
-
 			throw new BadCredentialsException(messages.getMessage("CoreAuthenticationProvider.badCredentials", "Bad credentials"));
-
 		}
-
 		return super.authenticate(authentication);
+	}
 
+	private UserModel prepareUserModel(String username) {
+		UserModel model = getUserService().getUserForUID(StringUtils.lowerCase(username));
+		model.setLoginDisabled(true);
+
+		if (model instanceof CustomerModel) {
+			int attemptCount = ((CustomerModel) model).getAttemptCount();
+			((CustomerModel) model).setStatus(Boolean.FALSE);
+			((CustomerModel) model).setAttemptCount(--attemptCount);
+		}
+		return model;
 	}
 
 	/**
