@@ -17,7 +17,7 @@
 	<!-- Configuration for extension mentoringcore -->
 
 	<explorertree>
-		<group name="mentoringgroup">
+		<group name="mentoringgroup" expand="false">
 			<typeref type="Organisation"/>
 			<typeref type="Customer"/>
 		</group>

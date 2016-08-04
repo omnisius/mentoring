@@ -22,7 +22,7 @@
      <context:annotation-config/> 
 
 	<!-- Spring Integration -->
-	<!--<import resource="classpath:/mentoringcore/integration/hot-folder-store-mentoring-spring.xml"/>-->
+	<import resource="classpath:/mentoringcore/integration/hot-folder-store-mentoring-spring.xml"/>
 	<import resource="classpath:/mentoringcore/integration/hot-folder-store-electronics-spring.xml"/>
 	<import resource="classpath:/mentoringcore/integration/hot-folder-store-apparel-spring.xml"/>
 	<import resource="classpath:/mentoringcore/integration/hot-folder-common-spring.xml"/>
