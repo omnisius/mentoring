@@ -6,9 +6,6 @@ import de.hybris.mentoring.core.services.OrganizationService;
 
 import java.util.List;
 
-/**
- * Created by Bogdan_Bardakov on 8/3/2016.
- */
 public class DefaultOrganizationService implements OrganizationService {
     private OrganizationDao organizationDao;
 

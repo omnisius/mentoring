@@ -12,9 +12,6 @@ import org.apache.commons.collections.CollectionUtils;
 
 import java.util.List;
 
-/**
- * Created by Bogdan_Bardakov on 8/3/2016.
- */
 public class EmailJobPerformable extends AbstractJobPerformable<CronJobModel> {
     public static final String MESSAGE = "message";
     private MailService mailService;

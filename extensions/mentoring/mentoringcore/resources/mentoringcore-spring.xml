@@ -22,6 +22,7 @@
      <context:annotation-config/> 
 
 	<!-- Spring Integration -->
+	<!--<import resource="classpath:/mentoringcore/integration/hot-folder-store-mentoring-spring.xml"/>-->
 	<import resource="classpath:/mentoringcore/integration/hot-folder-store-electronics-spring.xml"/>
 	<import resource="classpath:/mentoringcore/integration/hot-folder-store-apparel-spring.xml"/>
 	<import resource="classpath:/mentoringcore/integration/hot-folder-common-spring.xml"/>
@@ -416,7 +417,7 @@
 		<property name="rootCategoryCode" value="categories"/>
 	</bean>
 
-	<bean id="organizationDao" class="de.hybris.mentoring.core.daos.impl.OrganizationDaoDefault">
+	<bean id="organizationDao" class="de.hybris.mentoring.core.daos.impl.DefaultOrganizationDao">
 		<constructor-arg value="Organization" />
 	</bean>
 	<bean id="organizationService" class="de.hybris.mentoring.core.services.impl.DefaultOrganizationService">
