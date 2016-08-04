@@ -415,5 +415,21 @@
 		<property name="commerceCategoryService" ref="commerceCategoryService"/>
 		<property name="rootCategoryCode" value="categories"/>
 	</bean>
-	
+
+	<bean id="organizationDao" class="de.hybris.mentoring.core.daos.impl.OrganizationDaoDefault">
+		<constructor-arg value="Organization" />
+	</bean>
+	<bean id="organizationService" class="de.hybris.mentoring.core.services.impl.DefaultOrganizationService">
+		<property name="organizationDao" ref="organizationDao"/>
+	</bean>
+	<bean id="mailService" class="de.hybris.mentoring.core.services.impl.EmployeeListMailService">
+		<property name="emailService" ref="emailService"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<bean id="emailJobPerformable" class="de.hybris.mentoring.core.job.EmailJobPerformable" parent="abstractJobPerformable" scope="tenant">
+		<property name="organizationService" ref="organizationService"/>
+		<property name="mailService" ref="mailService"/>
+	</bean>
+
 </beans>

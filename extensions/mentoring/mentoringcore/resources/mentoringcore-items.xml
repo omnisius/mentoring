@@ -39,8 +39,12 @@
 	<relations>
 		<relation code="CustomerOrganizationRel" localized="false" autocreate="true">
 			<deployment table="customerOrganization" typecode="10002"/>
-			<sourceElement qualifier="customer" type="Customer" cardinality="many"/>
-			<targetElement qualifier="organization" type="Organization" cardinality="many"/>
+			<sourceElement qualifier="customer" type="Customer" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true"/>
+			</sourceElement>
+			<targetElement qualifier="organization" type="Organization" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="true"/>
+			</targetElement>
 		</relation>
 	</relations>
 
