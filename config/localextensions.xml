@@ -85,6 +85,7 @@
 		<extension name="mentoringinitialdata"/>
 		<extension name="mentoringfacades"/>
 		<extension name="mentoringcockpits"/>
+		<extension name="mentoringbackoffice"/>
 		                 
     </extensions>
 </hybrisconfig>

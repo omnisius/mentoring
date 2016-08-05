@@ -59,4 +59,18 @@
 		</entry>
 	</util:map>
 
+	<bean id="MentoringTypeSelectorSection" class="de.hybris.platform.cockpit.components.navigationarea.NavigationPanelSection"
+		  scope="prototype">
+		<property name="localizedLabel" value="navigationarea.types" />
+		<property name="visible" value="true" />
+		<property name="renderer">
+			<bean class="de.hybris.platform.cockpit.components.navigationarea.renderer.TypeSelectorSectionRenderer" autowire="byName">
+				<property name="typeCodes" value="Organization"></property>
+				<property name="browserModelFactory" ref="de.hybris.platform.cockpit.model.browser.impl.DefaultBrowserModelFactory"/>
+				<property name="typeDefinitionDao" ref="typeDefinitionDao"/>
+				<property name="cockpitTypeService" ref="cockpitTypeService"/>
+			</bean>
+		</property>
+	</bean>
+
 </beans>
